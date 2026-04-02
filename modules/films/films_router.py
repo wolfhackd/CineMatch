@@ -1,7 +1,5 @@
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session, select
-from config.database import get_db
+from fastapi import APIRouter, Depends
 from models.models import Filme
 from modules.films.films_controller import FilmsController
 from modules.films.films_dependencies import get_films_controller
