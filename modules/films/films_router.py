@@ -1,8 +1,23 @@
+import uuid
+
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from models.models import Filme
 from modules.films.films_controller import FilmsController
 from modules.films.films_dependencies import get_films_controller
+
+class TagRead(BaseModel):
+    id: uuid.UUID
+    tag: str
+
+    class Config:
+        from_attributes = True
+
+class FilmeReadWithTags(BaseModel):
+    id: uuid.UUID
+    title: str
+    description: str
+    tags: list[TagRead] = []
 
 
 router = APIRouter(
@@ -11,7 +26,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.get("/")
+@router.get("/", response_model=list[FilmeReadWithTags])
 async def list_films(controller: FilmsController = Depends(get_films_controller)):
    return controller.list_films()
 

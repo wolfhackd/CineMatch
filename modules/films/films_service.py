@@ -28,13 +28,9 @@ class FilmsService:
         if not film or film is None:
             raise HTTPException(status_code=404, detail="Film not found")
 
-        # Chamar o tag_id e vê se realmente existe
-        # Tenho que chamar o repo certo
         tag = self.tags_repository.get_by_id(tag_id)
         if not tag or tag is None:
             raise HTTPException(status_code=404, detail="Tag not found")
 
-        # Vincular a classe
-        # Salvar no banco
-
+        # Seria interessante retornar a classe com o relacionamento
         return self.repository.add_tag_to_film(film_id, tag_id)
