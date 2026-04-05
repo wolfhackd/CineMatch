@@ -15,3 +15,6 @@ class TagsRepository:
     
     def get_all(self):
         return self.session.query(Tags).all()
+    
+    def get_by_id(self, id):
+        return self.session.query(Tags).filter(Tags.id == id).first()
