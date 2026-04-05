@@ -1,0 +1,20 @@
+# Ambientes virtuais
+venv/
+.venv/
+env/
+
+__pycache__/
+**/*/__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Banco de dados local (se usar SQLite)
+*.db
+*.sqlite3
