@@ -15,17 +15,10 @@ class FilmsRepository:
         return filme
     
     def get_by_id(self, id):
-        return self.session.exec(select(Filme).where(Filme.id == id)).first()
+        statement = select(Filme).where(Filme.id == id).options(selectinload(Filme.tags))
+        return self.session.exec(statement).first()
 
     def get_all(self):
         statement = select(Filme).options(selectinload(Filme.tags))
         return self.session.exec(statement).all()
-        # return self.session.exec(select(Filme).all())
-
-    def add_tag_to_film(self, film_id, tag_id):
-        relation = FilmeTags(filme_id=film_id, tag_id=tag_id)
-        self.session.add(relation)
-        self.session.commit()
-        self.session.refresh(relation)
-        return relation
         

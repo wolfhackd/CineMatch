@@ -9,7 +9,6 @@ from modules.tags.tags_repository import TagsRepository
 
 def get_films_controller(session = Depends(get_db)):
     repo = FilmsRepository(session)
-    tags_repo = TagsRepository(session)
-    service = FilmsService(repo, tags_repo) #TEm algo errado aqui
+    service = FilmsService(repo)
     
     return FilmsController(service)
