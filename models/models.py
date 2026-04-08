@@ -3,22 +3,22 @@ import uuid
 from enum import Enum as PyEnum
 from sqlmodel import  Field, Relationship, SQLModel
 
-class FilmeTags(SQLModel, table=True):
-    filme_id: uuid.UUID = Field(foreign_key="filme.id", primary_key=True)
+class MovieTags(SQLModel, table=True):
+    movie_id: uuid.UUID = Field(foreign_key="movie.id", primary_key=True)
     tag_id: uuid.UUID = Field(foreign_key="tags.id", primary_key=True)
 
-class Filme(SQLModel, table=True):
+class Movie(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     title: str
     description: str
 
-    tags: list["Tags"] = Relationship(back_populates="filmes", link_model=FilmeTags)
+    tags: list["Tags"] = Relationship(back_populates="movies", link_model=MovieTags)
 
 class Tags(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     tag: str
 
-    filmes: list["Filme"] = Relationship(back_populates="tags", link_model=FilmeTags)
+    movies: list["Movie"] = Relationship(back_populates="tags", link_model=MovieTags)
 
 # Relacinamento muitos para muitos
 
@@ -26,15 +26,14 @@ class User(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     name: str
 
-class TipoInteracao(str, PyEnum):
-    CURTIU = "curtiu"
-    NAO_CURTIU = "nao_curtiu"
-    ASSISTIR_DEPOIS = "assistir_depois"
-    VISUALIZOU = "visualizou"
+class InteractionType(str, PyEnum):
+    LIKE = "like"
+    DISLIKE = "dislike"
+    VIEWED = "viewed"
 
-class InteracoesUsuario(SQLModel, table=True):
+class UserInteraction(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     tag_id: uuid.UUID = Field(foreign_key="tags.id")
     user_id: uuid.UUID = Field(foreign_key="user.id")
-    tipo_interacao: TipoInteracao = Field(index=True)
-    peso: int 
+    interaction_type: InteractionType = Field(index=True)
+    weight: int 
