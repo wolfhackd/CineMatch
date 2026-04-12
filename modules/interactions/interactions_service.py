@@ -60,7 +60,6 @@ class InteractionsService:
                 new_record = UserInteraction(
                 tag_id=tag.id, 
                 user_id=user_id, 
-                interaction_type=interaction_type, 
                 weight=points
             )
                 self.repository.interactions(new_record)

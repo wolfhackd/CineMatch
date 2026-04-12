@@ -17,7 +17,11 @@ class InteractionsRepository():
         return self.session.query(MovieTags).filter(MovieTags.id == id).first()
     
     def get_interactions(self, user_id,tag_id):
-        return self.session.query(UserInteraction).filter(UserInteraction.user_id == user_id and UserInteraction.tag_id == tag_id).first()
+        return self.session.query(UserInteraction).filter(UserInteraction.user_id == user_id, UserInteraction.tag_id == tag_id).first()
+    
+    def get_all_interactions(self, user_id):
+        return self.session.query(UserInteraction).filter(UserInteraction.user_id == user_id).all()
+        
     
     def interactions(self,UserInteraction):
         self.session.add(UserInteraction)

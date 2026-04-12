@@ -1,7 +1,7 @@
 
 from sqlalchemy.orm import selectinload
 from sqlmodel import select
-from models.models import Movie
+from models.models import Movie, Tags
 
 
 class MoviesRepository:
@@ -17,6 +17,17 @@ class MoviesRepository:
     def get_by_id(self, id):
         statement = select(Movie).where(Movie.id == id).options(selectinload(Movie.tags))
         return self.session.exec(statement).first()
+    
+    def get_movies_by_tags(self, tag_ids):
+        statement = (
+            select(Movie)
+            .where(Movie.tags.any(Tags.id.in_(tag_ids))) 
+            .options(selectinload(Movie.tags))
+        )
+        return self.session.exec(statement).all()
+        
+
+   
 
     def get_all(self):
         statement = select(Movie).options(selectinload(Movie.tags))

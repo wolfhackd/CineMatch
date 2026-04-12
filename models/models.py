@@ -26,14 +26,8 @@ class User(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     name: str
 
-class InteractionType(str, PyEnum):
-    LIKE = "like"
-    DISLIKE = "dislike"
-    VIEWED = "viewed"
-
 class UserInteraction(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     tag_id: uuid.UUID = Field(foreign_key="tags.id")
     user_id: uuid.UUID = Field(foreign_key="user.id")
-    interaction_type: InteractionType = Field(index=True)
-    weight: int 
+    weight: int = 0

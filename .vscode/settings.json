@@ -1,14 +1,20 @@
 {
   "cSpell.words": [
     "cinematch",
+    "crosstab",
     "interacao",
     "Interacao",
     "Interacoes",
     "nullable",
     "postgresql",
+    "Rankear",
+    "recomendacoes",
     "Relacinamento",
     "selectinload",
-    "Usuario"
+    "sugestoes",
+    "usuario",
+    "Usuario",
+    "vectorizer"
   ],
   "sqltools.connections": [
     {
